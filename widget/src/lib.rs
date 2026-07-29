@@ -22,7 +22,9 @@ impl Guest for MyWidget {
     }
 
     fn run(context: WidgetContext) -> WidgetResult {
-        WidgetResult { data: context.config }
+        let config: WidgetConfig =
+            serde_json::from_str(&context.config).expect("Failed to parse config");
+        WidgetResult { data: config.output }
     }
 
     fn get_config_schema() -> String  {
